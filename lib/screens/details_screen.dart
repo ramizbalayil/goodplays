@@ -88,17 +88,27 @@ class DetailsScreen extends StatelessWidget {
         ));
   }
 
-  Positioned buildDetails(Size size) {
-    return Positioned(bottom: 0, child: buildContainerWithDetails(size));
+  Widget buildDetails(Size size) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.5,
+      minChildSize: 0.3,
+      maxChildSize: 0.9,
+      builder: (context, controller) => ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+        child: Container(
+            color: kPrimaryColor.withOpacity(0.95),
+            child: SingleChildScrollView(
+              controller: controller,
+              child: buildContainerWithDetails(size),
+            )),
+      ),
+    );
   }
 
   Container buildContainerWithDetails(Size size) {
     return Container(
       width: size.width,
       height: size.height * 0.5,
-      decoration: BoxDecoration(
-          color: kPrimaryColor.withOpacity(0.95),
-          borderRadius: BorderRadius.vertical(top: Radius.circular(50))),
       child: Padding(
           padding: EdgeInsets.all(30),
           child: Column(
