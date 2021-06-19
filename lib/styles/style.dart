@@ -9,4 +9,5 @@ const TextStyle kTabStyle = TextStyle(color: kTertiaryColor, fontSize: 15);
 const TextStyle kSelectedTabStyle =
     TextStyle(color: Color.fromRGBO(254, 220, 51, 1), fontSize: 15);
 const TextStyle kSubheaderStyle =
-    TextStyle(color: Color(0xFFD6D6D6), fontSize: 25);
+    TextStyle(color: Color(0xFFD6D6D6), fontSize: 23);
+const TextStyle kGameTitleStyle = TextStyle(color: Colors.white, fontSize: 15);

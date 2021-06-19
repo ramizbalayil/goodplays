@@ -7,20 +7,20 @@ class SelectableTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        alignment: Alignment.center,
-        child: LayoutBuilder(
-          builder: (context, constraints) => ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              buildTabs("Featured", kSelectedTabStyle, constraints.maxHeight),
-              buildTabs("Indie", kTabStyle, constraints.maxHeight),
-              buildTabs("RPGs", kTabStyle, constraints.maxHeight),
-              buildTabs("Casual", kTabStyle, constraints.maxHeight),
-              buildTabs("Puzzle", kTabStyle, constraints.maxHeight),
-              buildTabs("Board", kTabStyle, constraints.maxHeight),
-            ],
-          ),
-        ));
+      child: LayoutBuilder(
+        builder: (context, constraints) => ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            buildTabs("Featured", kSelectedTabStyle, constraints.maxHeight),
+            buildTabs("Indie", kTabStyle, constraints.maxHeight),
+            buildTabs("RPGs", kTabStyle, constraints.maxHeight),
+            buildTabs("Casual", kTabStyle, constraints.maxHeight),
+            buildTabs("Puzzle", kTabStyle, constraints.maxHeight),
+            buildTabs("Board", kTabStyle, constraints.maxHeight),
+          ],
+        ),
+      ),
+    );
   }
 
   Container buildTabs(String text, TextStyle textStyle, double minH) {

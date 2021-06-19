@@ -24,9 +24,20 @@ class HomeScreen extends StatelessWidget {
                     titleText: "Home",
                   )),
               buildFlexibleWidgets(1, SelectableTabs()),
-              buildFlexibleWidgets(5, GamesList()),
+              buildFlexibleWidgets(
+                  5,
+                  GamesList(
+                    cardsWidth: 200,
+                    cardsMargin: 20,
+                    isDetailsRequired: true,
+                  )),
               buildFlexibleWidgets(1, Subheader(text: "Recommended to you")),
-              buildFlexibleWidgets(2, GamesList()),
+              buildFlexibleWidgets(
+                  2,
+                  GamesList(
+                    cardsWidth: 100,
+                    cardsMargin: 10,
+                  )),
             ],
           ),
         ),
