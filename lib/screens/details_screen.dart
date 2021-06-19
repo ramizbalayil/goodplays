@@ -18,41 +18,45 @@ class DetailsScreen extends StatelessWidget {
               buildDetailsImage(),
               buildBackButton(context),
               buildDetails(size),
-              Positioned(
-                  bottom: 20,
-                  left: 20,
-                  right: 20,
-                  child: Container(
-                      height: size.height * 0.085,
-                      child: Row(
-                        children: [
-                          Flexible(
-                              flex: 3,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: Center(
-                                  child: buildElevatedButton(Text(
-                                    "Download",
-                                    style: kButtonStyle,
-                                  )),
-                                ),
-                              )),
-                          Flexible(
-                              flex: 1,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: buildElevatedButton(Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.black,
-                                )),
-                              )),
-                        ],
-                      )))
+              buildDetailsScreenButtons(size)
             ],
           ),
         ),
       ),
     );
+  }
+
+  Positioned buildDetailsScreenButtons(Size size) {
+    return Positioned(
+        bottom: 20,
+        left: 20,
+        right: 20,
+        child: Container(
+            height: size.height * 0.085,
+            child: Row(
+              children: [
+                Flexible(
+                    flex: 3,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Center(
+                        child: buildElevatedButton(Text(
+                          "Download",
+                          style: kButtonStyle,
+                        )),
+                      ),
+                    )),
+                Flexible(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: buildElevatedButton(Icon(
+                        Icons.favorite_border,
+                        color: Colors.black,
+                      )),
+                    )),
+              ],
+            )));
   }
 
   ElevatedButton buildElevatedButton(Widget w) {
