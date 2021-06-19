@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
+import 'package:goodplays/screens/details_screen.dart';
 import 'package:goodplays/styles/style.dart';
 
 class GameCard extends StatelessWidget {
@@ -28,7 +29,10 @@ class GameCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
-        onTap: onCardSelected,
+        onTap: () => Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) => DetailsScreen(data: data))),
         child: SizedBox(
           width: height * widthOfCard,
           height: double.infinity,
@@ -87,9 +91,5 @@ class GameCard extends StatelessWidget {
         fit: BoxFit.cover,
       ),
     );
-  }
-
-  void onCardSelected() {
-    print('Card tapped.');
   }
 }

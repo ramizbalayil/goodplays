@@ -3,12 +3,14 @@ class CardData {
   final String imageUrl;
   final String gameTitlte;
   final String publisher;
+  final String details;
 
   const CardData(
       {this.id = "",
       this.imageUrl = "",
       this.gameTitlte = "",
-      this.publisher = ""});
+      this.publisher = "",
+      this.details = randomDetails});
 }
 
 const CardData cyberpunkData = CardData(
@@ -26,3 +28,6 @@ const CardData noMansSkyData = CardData(
     imageUrl: "assets/images/no_mans_sky.jpg",
     gameTitlte: "No Man's Sky",
     publisher: "Hello Games");
+
+const String randomDetails =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce scelerisque sem sit amet lacus euismod tempor. Integer nec nibh vitae felis rutrum fermentum. Ut a orci in sem mattis posuere non at enim";
