@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
               buildFlexibleWidgets(
                   5,
                   GamesList(
-                    cardsWidth: 200,
+                    cardsWidth: 0.3,
                     cardsMargin: 20,
                     isDetailsRequired: true,
                   )),
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
               buildFlexibleWidgets(
                   2,
                   GamesList(
-                    cardsWidth: 100,
+                    cardsWidth: 0.15,
                     cardsMargin: 10,
                   )),
             ],

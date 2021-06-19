@@ -20,6 +20,7 @@ class GameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Card(
       color: Colors.amber,
       margin: EdgeInsets.all(marginOfCard),
@@ -29,14 +30,14 @@ class GameCard extends StatelessWidget {
         splashColor: Colors.blue.withAlpha(30),
         onTap: onCardSelected,
         child: SizedBox(
-          width: widthOfCard,
+          width: height * widthOfCard,
           height: double.infinity,
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(30)),
             child: Stack(
               children: [
                 buildCardImage(),
-                buildCardDetails(),
+                buildCardDetails(height),
               ],
             ),
           ),
@@ -45,13 +46,13 @@ class GameCard extends StatelessWidget {
     );
   }
 
-  Widget buildCardDetails() {
+  Widget buildCardDetails(double height) {
     if (!isDetailsRequired) {
       return Container();
     } else {
       return Positioned(
         bottom: 0,
-        top: 200,
+        top: height * 0.3,
         right: 0,
         left: 0,
         child: ClipRRect(
