@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goodplays/styles/style.dart';
+import 'package:goodplays/data/style.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goodplays/styles/style.dart';
+import 'package:goodplays/data/style.dart';
 
 class PageTitle extends StatelessWidget {
   final String titleText;
@@ -26,11 +26,24 @@ class PageTitle extends StatelessWidget {
     return RawMaterialButton(
       onPressed: () {},
       fillColor: kSecondaryColor,
-      child: Icon(
-        Icons.search,
-        size: 25.0,
-      ),
+      child: titleText == "Home"
+          ? buildIconForHomeScreen()
+          : buildIconForDetailsScreen(),
       shape: CircleBorder(),
+    );
+  }
+
+  Icon buildIconForHomeScreen() {
+    return Icon(
+      Icons.search,
+      size: 25.0,
+    );
+  }
+
+  Icon buildIconForDetailsScreen() {
+    return Icon(
+      Icons.home,
+      size: 25.0,
     );
   }
 }

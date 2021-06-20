@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goodplays/styles/style.dart';
+import 'package:goodplays/data/style.dart';
 import 'package:goodplays/views/games_list.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'package:goodplays/views/selectable_tabs.dart';

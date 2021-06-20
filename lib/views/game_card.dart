@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/screens/details_screen.dart';
-import 'package:goodplays/styles/style.dart';
+import 'package:goodplays/data/style.dart';
 
 class GameCard extends StatelessWidget {
   final double widthOfCard;

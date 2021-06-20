@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goodplays/styles/style.dart';
+import 'package:goodplays/data/style.dart';
 
 class SelectableTabs extends StatelessWidget {
   const SelectableTabs({Key? key}) : super(key: key);

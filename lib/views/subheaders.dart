@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goodplays/styles/style.dart';
+import 'package:goodplays/data/style.dart';
 
 class Subheader extends StatelessWidget {
   final String text;

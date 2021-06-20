@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
-import 'package:goodplays/styles/style.dart';
+import 'package:goodplays/data/style.dart';
 
 class DetailsScreen extends StatelessWidget {
   final CardData data;
