@@ -11,9 +11,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
           padding: EdgeInsets.only(left: 10),
           color: kPrimaryColor,
           child: Column(
@@ -41,8 +41,8 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavBar(),
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 
