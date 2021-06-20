@@ -15,7 +15,7 @@ class GameCard extends StatelessWidget {
       {Key? key,
       this.widthOfCard: 0.0,
       this.marginOfCard: 0.0,
-      this.data: cyberpunkData,
+      required this.data,
       this.isDetailsRequired: false})
       : super(key: key);
 

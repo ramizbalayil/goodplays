@@ -3,7 +3,9 @@ import 'package:goodplays/data/style.dart';
 
 class PageTitle extends StatelessWidget {
   final String titleText;
-  const PageTitle({Key? key, this.titleText = ""}) : super(key: key);
+  final IconData iconData;
+  const PageTitle({Key? key, required this.titleText, required this.iconData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +28,11 @@ class PageTitle extends StatelessWidget {
     return RawMaterialButton(
       onPressed: () {},
       fillColor: kSecondaryColor,
-      child: titleText == "Home"
-          ? buildIconForHomeScreen()
-          : buildIconForDetailsScreen(),
+      child: Icon(
+        iconData,
+        size: 25.0,
+      ),
       shape: CircleBorder(),
-    );
-  }
-
-  Icon buildIconForHomeScreen() {
-    return Icon(
-      Icons.search,
-      size: 25.0,
-    );
-  }
-
-  Icon buildIconForDetailsScreen() {
-    return Icon(
-      Icons.home,
-      size: 25.0,
     );
   }
 }

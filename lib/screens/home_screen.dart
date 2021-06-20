@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:goodplays/views/games_list.dart';
 import 'package:goodplays/views/page_title.dart';
@@ -21,7 +22,8 @@ class HomeScreen extends StatelessWidget {
             buildFlexibleWidgets(
                 1,
                 PageTitle(
-                  titleText: "Home",
+                  titleText: HomeScreenTitle,
+                  iconData: Icons.search,
                 )),
             buildFlexibleWidgets(1, SelectableTabs()),
             buildFlexibleWidgets(

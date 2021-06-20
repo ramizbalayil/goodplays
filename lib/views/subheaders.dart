@@ -3,7 +3,7 @@ import 'package:goodplays/data/style.dart';
 
 class Subheader extends StatelessWidget {
   final String text;
-  const Subheader({Key? key, this.text: ""}) : super(key: key);
+  const Subheader({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
