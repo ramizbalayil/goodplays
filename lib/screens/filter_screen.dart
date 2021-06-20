@@ -75,7 +75,7 @@ class FilterScreen extends StatelessWidget {
           ),
           Text(
             data.ratings.toString(),
-            style: TextStyle(color: kSecondaryColor),
+            style: kRatingsStyleFilter,
           )
         ],
       ),

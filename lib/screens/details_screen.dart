@@ -114,7 +114,7 @@ class DetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildTextForDetailsScreen(data.gameTitle, kTitleStyle),
+              buildDetailsHeader(),
               SizedBox(
                 height: 5,
               ),
@@ -129,6 +129,31 @@ class DetailsScreen extends StatelessWidget {
               buildTextForDetailsScreen(data.details, kGameTitleStyle),
             ],
           )),
+    );
+  }
+
+  Row buildDetailsHeader() {
+    return Row(
+      children: [
+        Text(
+          data.gameTitle,
+          style: kTitleStyle,
+          overflow: TextOverflow.ellipsis,
+        ),
+        Spacer(),
+        Row(
+          children: [
+            Icon(
+              Icons.star_rounded,
+              color: kSecondaryColor,
+            ),
+            Text(
+              data.ratings.toString(),
+              style: kRatingsStyleDetails,
+            )
+          ],
+        )
+      ],
     );
   }
 

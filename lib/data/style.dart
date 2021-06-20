@@ -14,3 +14,7 @@ const TextStyle kButtonStyle = TextStyle(color: Colors.black, fontSize: 23);
 const TextStyle kGameTitleStyle = TextStyle(color: Colors.white, fontSize: 15);
 const TextStyle kListTileDescriptionStyle =
     TextStyle(color: Colors.grey, fontSize: 12);
+const TextStyle kRatingsStyleDetails =
+    TextStyle(color: kSecondaryColor, fontSize: 20);
+const TextStyle kRatingsStyleFilter =
+    TextStyle(color: kSecondaryColor, fontSize: 15);

@@ -24,7 +24,7 @@ const CardData cyberpunkData = CardData(
 const CardData witcherData = CardData(
     id: "witcher",
     imageUrl: "assets/images/witcher.jpg",
-    gameTitle: "Witcher 3: Wild Hunt",
+    gameTitle: "Witcher 3",
     publisher: "CD Projekt Red",
     ratings: 100);
 const CardData noMansSkyData = CardData(
