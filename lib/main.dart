@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:goodplays/screens/filter_screen.dart';
 import 'package:goodplays/screens/home_screen.dart';
 import 'package:goodplays/views/bottom_navbar.dart';
+import 'package:provider/provider.dart';
+import 'models/notifiers.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,10 +12,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Goodplays',
-      debugShowCheckedModeBanner: false,
-      home: AppScaffold(),
+    return ChangeNotifierProvider(
+      create: (context) => NavigationBloc(),
+      child: MaterialApp(
+        title: 'Goodplays',
+        debugShowCheckedModeBanner: false,
+        home: AppScaffold(),
+      ),
     );
   }
 }
@@ -22,9 +28,21 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NavigationBloc navBarBloc = Provider.of<NavigationBloc>(context);
+
     return Scaffold(
-      body: HomeScreen(),
-      bottomNavigationBar: BottomNavBar(),
+      body: showSelectedScreen(navBarBloc.pageNumber),
+      bottomNavigationBar: BottomNavBar(pageNumber: navBarBloc.pageNumber),
     );
+  }
+
+  Widget showSelectedScreen(int pageNumber) {
+    List<Widget> screens = [HomeScreen(), FilterScreen()];
+
+    if (pageNumber < screens.length) {
+      return screens[pageNumber];
+    } else {
+      return Container();
+    }
   }
 }

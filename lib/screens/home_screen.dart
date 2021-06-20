@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
+import 'package:goodplays/models/local_data.dart';
+import 'package:goodplays/models/notifiers.dart';
 import 'package:goodplays/views/games_list.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'package:goodplays/views/selectable_tabs.dart';
 import 'package:goodplays/views/subheaders.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -32,6 +35,7 @@ class HomeScreen extends StatelessWidget {
                   cardsWidth: 0.3,
                   cardsMargin: 20,
                   isDetailsRequired: true,
+                  dataList: getCardDatasForTabs(context),
                 )),
             buildFlexibleWidgets(1, Subheader(text: "Recommended to you")),
             buildFlexibleWidgets(
@@ -39,11 +43,42 @@ class HomeScreen extends StatelessWidget {
                 GamesList(
                   cardsWidth: 0.15,
                   cardsMargin: 10,
+                  dataList: getCardDatasForRecommended(),
                 )),
           ],
         ),
       ),
     );
+  }
+
+  List<CardData> getCardDatasForRecommended() {
+    return [
+      cyberpunkData,
+      witcherData,
+      noMansSkyData,
+      witcherData,
+      cyberpunkData
+    ];
+  }
+
+  List<CardData> getCardDatasForTabs(BuildContext context) {
+    if (context.read<NavigationBloc>().selectedTab % 2 == 0) {
+      return [
+        cyberpunkData,
+        witcherData,
+        noMansSkyData,
+        witcherData,
+        cyberpunkData
+      ];
+    } else {
+      return [
+        witcherData,
+        noMansSkyData,
+        cyberpunkData,
+        cyberpunkData,
+        witcherData
+      ];
+    }
   }
 
   Flexible buildFlexibleWidgets(int flexValue, Widget w) {

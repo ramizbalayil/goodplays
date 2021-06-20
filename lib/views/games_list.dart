@@ -6,9 +6,10 @@ class GamesList extends StatelessWidget {
   final double cardsWidth;
   final double cardsMargin;
   final bool isDetailsRequired;
-
+  final List<CardData> dataList;
   const GamesList(
       {Key? key,
+      required this.dataList,
       this.cardsWidth: 0.0,
       this.cardsMargin: 0.0,
       this.isDetailsRequired: false})
@@ -17,17 +18,12 @@ class GamesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: LayoutBuilder(
-        builder: (context, constraints) => ListView(
-          scrollDirection: Axis.horizontal,
-          children: [
-            buildGameCard(cyberpunkData),
-            buildGameCard(witcherData),
-            buildGameCard(noMansSkyData),
-            buildGameCard(witcherData),
-            buildGameCard(cyberpunkData),
-          ],
-        ),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: dataList.length,
+        itemBuilder: (context, index) {
+          return buildGameCard(dataList[index]);
+        },
       ),
     );
   }

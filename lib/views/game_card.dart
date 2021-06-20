@@ -27,7 +27,6 @@ class GameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Card(
-      color: Colors.amber,
       margin: EdgeInsets.all(marginOfCard),
       elevation: 10,
       shape: RoundedRectangleBorder(
