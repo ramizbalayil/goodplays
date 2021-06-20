@@ -114,7 +114,7 @@ class DetailsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildTextForDetailsScreen(data.gameTitlte, kTitleStyle),
+              buildTextForDetailsScreen(data.gameTitle, kTitleStyle),
               SizedBox(
                 height: 5,
               ),

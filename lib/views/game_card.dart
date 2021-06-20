@@ -9,14 +9,18 @@ class GameCard extends StatelessWidget {
   final double widthOfCard;
   final double marginOfCard;
   final CardData data;
+  final double borderRadiusForImage;
   final bool isDetailsRequired;
+  final bool isTappable;
 
   const GameCard(
       {Key? key,
       this.widthOfCard: 0.0,
       this.marginOfCard: 0.0,
       required this.data,
-      this.isDetailsRequired: false})
+      this.borderRadiusForImage: 30,
+      this.isDetailsRequired: false,
+      this.isTappable: true})
       : super(key: key);
 
   @override
@@ -26,18 +30,17 @@ class GameCard extends StatelessWidget {
       color: Colors.amber,
       margin: EdgeInsets.all(marginOfCard),
       elevation: 10,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadiusForImage)),
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
-        onTap: () => Navigator.push(
-            context,
-            new MaterialPageRoute(
-                builder: (context) => DetailsScreen(data: data))),
+        onTap: isTappable ? () => onCardTapped(context) : null,
         child: SizedBox(
           width: height * widthOfCard,
           height: double.infinity,
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
+            borderRadius:
+                BorderRadius.all(Radius.circular(borderRadiusForImage)),
             child: Stack(
               children: [
                 buildCardImage(),
@@ -48,6 +51,11 @@ class GameCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onCardTapped(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => DetailsScreen(data: data)));
   }
 
   Widget buildCardDetails(double height) {
@@ -68,7 +76,7 @@ class GameCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    data.gameTitlte,
+                    data.gameTitle,
                     style: kGameTitleStyle,
                   ),
                   Text(

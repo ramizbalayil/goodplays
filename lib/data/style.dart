@@ -12,3 +12,5 @@ const TextStyle kSubheaderStyle =
     TextStyle(color: Color(0xFFD6D6D6), fontSize: 23);
 const TextStyle kButtonStyle = TextStyle(color: Colors.black, fontSize: 23);
 const TextStyle kGameTitleStyle = TextStyle(color: Colors.white, fontSize: 15);
+const TextStyle kListTileDescriptionStyle =
+    TextStyle(color: Colors.grey, fontSize: 12);
