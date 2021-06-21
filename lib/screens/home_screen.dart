@@ -7,7 +7,6 @@ import 'package:goodplays/views/games_list.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'package:goodplays/views/selectable_tabs.dart';
 import 'package:goodplays/views/subheaders.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -29,56 +28,31 @@ class HomeScreen extends StatelessWidget {
                   iconData: Icons.search,
                 )),
             buildFlexibleWidgets(1, SelectableTabs()),
-            buildFlexibleWidgets(
-                5,
-                GamesList(
-                  cardsWidth: 0.3,
-                  cardsMargin: 20,
-                  isDetailsRequired: true,
-                  dataList: getCardDatasForTabs(context),
-                )),
+            buildFlexibleWidgets(5, getFutureBuilder(0.3, 20, true)),
             buildFlexibleWidgets(1, Subheader(text: "Recommended to you")),
-            buildFlexibleWidgets(
-                2,
-                GamesList(
-                  cardsWidth: 0.15,
-                  cardsMargin: 10,
-                  dataList: getCardDatasForRecommended(),
-                )),
+            buildFlexibleWidgets(2, getFutureBuilder(0.15, 10, true)),
           ],
         ),
       ),
     );
   }
 
-  List<CardData> getCardDatasForRecommended() {
-    return [
-      cyberpunkData,
-      witcherData,
-      noMansSkyData,
-      witcherData,
-      cyberpunkData
-    ];
-  }
-
-  List<CardData> getCardDatasForTabs(BuildContext context) {
-    if (context.read<NavigationBloc>().selectedTab % 2 == 0) {
-      return [
-        cyberpunkData,
-        witcherData,
-        noMansSkyData,
-        witcherData,
-        cyberpunkData
-      ];
-    } else {
-      return [
-        witcherData,
-        noMansSkyData,
-        cyberpunkData,
-        cyberpunkData,
-        witcherData
-      ];
-    }
+  Widget getFutureBuilder(double cW, double m, bool iDR) {
+    return FutureBuilder(
+      future: NetworkBloc().getGames(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return GamesList(
+            isNetwork: true,
+            cardsWidth: cW,
+            cardsMargin: m,
+            isDetailsRequired: iDR,
+            dataList: snapshot.data as List<CardData>,
+          );
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    );
   }
 
   Flexible buildFlexibleWidgets(int flexValue, Widget w) {

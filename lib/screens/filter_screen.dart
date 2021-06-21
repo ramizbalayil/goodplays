@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:goodplays/models/local_data.dart';
+import 'package:goodplays/models/notifiers.dart';
 import 'package:goodplays/views/game_card.dart';
 import 'package:goodplays/views/page_title.dart';
-
 import 'details_screen.dart';
 
 class FilterScreen extends StatelessWidget {
@@ -29,13 +29,23 @@ class FilterScreen extends StatelessWidget {
             buildFlexibleWidgets(
                 9,
                 Container(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) =>
-                          buildListTile(getListViewData()[index], context),
-                      separatorBuilder: (context, index) => Divider(
-                            color: Colors.grey[800],
-                          ),
-                      itemCount: getListViewData().length),
+                  child: FutureBuilder(
+                    future: NetworkBloc().getGames(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        List<CardData> dataList =
+                            snapshot.data as List<CardData>;
+                        return ListView.separated(
+                            itemBuilder: (context, index) =>
+                                buildListTile(dataList[index], context, true),
+                            separatorBuilder: (context, index) => Divider(
+                                  color: Colors.grey[800],
+                                ),
+                            itemCount: dataList.length);
+                      }
+                      return Center(child: CircularProgressIndicator());
+                    },
+                  ),
                 ))
           ],
         ),
@@ -43,22 +53,11 @@ class FilterScreen extends StatelessWidget {
     );
   }
 
-  List<CardData> getListViewData() {
-    return [
-      cyberpunkData,
-      witcherData,
-      noMansSkyData,
-      witcherData,
-      cyberpunkData,
-      witcherData,
-      noMansSkyData
-    ];
-  }
-
-  ListTile buildListTile(CardData data, BuildContext context) {
+  ListTile buildListTile(CardData data, BuildContext context, bool isNetwork) {
     return ListTile(
       onTap: () => onCardTapped(context, data),
       leading: GameCard(
+          isNetwork: isNetwork,
           isTappable: false,
           widthOfCard: 0.1,
           marginOfCard: 0,

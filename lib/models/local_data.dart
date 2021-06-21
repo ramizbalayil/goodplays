@@ -1,38 +1,32 @@
 class CardData {
-  final String id;
+  final int id;
   final String imageUrl;
   final String gameTitle;
-  final String publisher;
   final String details;
   final int ratings;
+  final double rating;
+  final int ratingTop;
 
   const CardData(
       {required this.id,
       required this.imageUrl,
       required this.gameTitle,
-      required this.publisher,
       required this.ratings,
+      required this.rating,
+      required this.ratingTop,
       this.details = randomDetails});
-}
 
-const CardData cyberpunkData = CardData(
-    id: "cyberpunk",
-    imageUrl: "assets/images/cyberpunk-2077.jpg",
-    gameTitle: "Cyberpunk 2077",
-    publisher: "CD Projekt Red",
-    ratings: 10);
-const CardData witcherData = CardData(
-    id: "witcher",
-    imageUrl: "assets/images/witcher.jpg",
-    gameTitle: "Witcher 3",
-    publisher: "CD Projekt Red",
-    ratings: 100);
-const CardData noMansSkyData = CardData(
-    id: "no_mans_sky",
-    imageUrl: "assets/images/no_mans_sky.jpg",
-    gameTitle: "No Man's Sky",
-    publisher: "Hello Games",
-    ratings: 50);
+  factory CardData.fromJson(Map<String, dynamic> json) {
+    return CardData(
+      ratings: 100,
+      id: json["id"],
+      gameTitle: json["name"],
+      imageUrl: json["background_image"],
+      rating: json["rating"],
+      ratingTop: json["rating_top"],
+    );
+  }
+}
 
 const String randomDetails =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce scelerisque sem sit amet lacus euismod tempor. Integer nec nibh vitae felis rutrum fermentum. Ut a orci in sem mattis posuere non at enim";

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/screens/details_screen.dart';
@@ -12,12 +11,14 @@ class GameCard extends StatelessWidget {
   final double borderRadiusForImage;
   final bool isDetailsRequired;
   final bool isTappable;
+  final bool isNetwork;
 
   const GameCard(
       {Key? key,
       this.widthOfCard: 0.0,
       this.marginOfCard: 0.0,
       required this.data,
+      required this.isNetwork,
       this.borderRadiusForImage: 30,
       this.isDetailsRequired: false,
       this.isTappable: true})
@@ -27,6 +28,7 @@ class GameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Card(
+      color: kSecondaryColor,
       margin: EdgeInsets.all(marginOfCard),
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -78,10 +80,6 @@ class GameCard extends StatelessWidget {
                     data.gameTitle,
                     style: kGameTitleStyle,
                   ),
-                  Text(
-                    data.publisher,
-                    style: kTabStyle,
-                  )
                 ],
               ),
             ),
@@ -91,12 +89,27 @@ class GameCard extends StatelessWidget {
     }
   }
 
-  Positioned buildCardImage() {
-    return Positioned.fill(
-      child: Image(
-        image: AssetImage(data.imageUrl),
-        fit: BoxFit.cover,
-      ),
-    );
+  Widget buildCardImage() {
+    if (isNetwork) {
+      return Positioned.fill(
+        child: Image.network(
+          data.imageUrl,
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
+      );
+    } else {
+      return Positioned.fill(
+        child: Image(
+          image: AssetImage(data.imageUrl),
+          fit: BoxFit.cover,
+        ),
+      );
+    }
   }
 }
