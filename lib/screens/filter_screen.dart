@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:goodplays/models/local_data.dart';
-import 'package:goodplays/models/notifiers.dart';
+import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/views/game_card.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'details_screen.dart';
@@ -14,6 +14,8 @@ class FilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var bloc = ServiceLocator.of(context)!.networkBloc;
+
     return SafeArea(
       child: Container(
         padding: EdgeInsets.only(left: 10),
@@ -30,7 +32,7 @@ class FilterScreen extends StatelessWidget {
                 9,
                 Container(
                   child: FutureBuilder(
-                    future: NetworkBloc().getGames(),
+                    future: bloc.getGames(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         List<CardData> dataList =

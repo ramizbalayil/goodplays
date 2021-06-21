@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:goodplays/models/local_data.dart';
-import 'package:goodplays/models/notifiers.dart';
+import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/views/games_list.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'package:goodplays/views/selectable_tabs.dart';
@@ -28,18 +28,19 @@ class HomeScreen extends StatelessWidget {
                   iconData: Icons.search,
                 )),
             buildFlexibleWidgets(1, SelectableTabs()),
-            buildFlexibleWidgets(5, getFutureBuilder(0.3, 20, true)),
+            buildFlexibleWidgets(5, getFutureBuilder(0.3, 20, true, context)),
             buildFlexibleWidgets(1, Subheader(text: "Recommended to you")),
-            buildFlexibleWidgets(2, getFutureBuilder(0.15, 10, true)),
+            buildFlexibleWidgets(2, getFutureBuilder(0.15, 10, true, context)),
           ],
         ),
       ),
     );
   }
 
-  Widget getFutureBuilder(double cW, double m, bool iDR) {
+  Widget getFutureBuilder(double cW, double m, bool iDR, BuildContext context) {
+    var bloc = ServiceLocator.of(context)!.networkBloc;
     return FutureBuilder(
-      future: NetworkBloc().getGames(),
+      future: bloc.getGames(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return GamesList(

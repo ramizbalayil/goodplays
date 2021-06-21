@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/screens/filter_screen.dart';
 import 'package:goodplays/screens/home_screen.dart';
 import 'package:goodplays/views/bottom_navbar.dart';
@@ -17,7 +18,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Goodplays',
         debugShowCheckedModeBanner: false,
-        home: AppScaffold(),
+        home: ServiceLocator(
+          child: AppScaffold(),
+          networkBloc: NetworkBloc(),
+        ),
       ),
     );
   }
