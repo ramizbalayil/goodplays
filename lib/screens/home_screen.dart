@@ -44,7 +44,6 @@ class HomeScreen extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return GamesList(
-            isNetwork: true,
             cardsWidth: cW,
             cardsMargin: m,
             isDetailsRequired: iDR,

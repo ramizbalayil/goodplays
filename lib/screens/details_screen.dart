@@ -15,7 +15,7 @@ class DetailsScreen extends StatelessWidget {
           color: kPrimaryColor,
           child: Stack(
             children: [
-              buildDetailsImage(true),
+              buildDetailsImage(),
               buildBackButton(context),
               buildDetails(size),
               buildDetailsScreenButtons(size)
@@ -164,27 +164,18 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  Positioned buildDetailsImage(bool isNetwork) {
-    if (isNetwork) {
-      return Positioned.fill(
-        child: Image.network(
-          data.imageUrl,
-          fit: BoxFit.cover,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            }
-            return Center(child: CircularProgressIndicator());
-          },
-        ),
-      );
-    } else {
-      return Positioned.fill(
-        child: Image(
-          image: AssetImage(data.imageUrl),
-          fit: BoxFit.cover,
-        ),
-      );
-    }
+  Positioned buildDetailsImage() {
+    return Positioned.fill(
+      child: Image.network(
+        data.imageUrl,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) {
+            return child;
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
   }
 }

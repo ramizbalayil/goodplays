@@ -11,14 +11,12 @@ class GameCard extends StatelessWidget {
   final double borderRadiusForImage;
   final bool isDetailsRequired;
   final bool isTappable;
-  final bool isNetwork;
 
   const GameCard(
       {Key? key,
       this.widthOfCard: 0.0,
       this.marginOfCard: 0.0,
       required this.data,
-      required this.isNetwork,
       this.borderRadiusForImage: 30,
       this.isDetailsRequired: false,
       this.isTappable: true})
@@ -90,26 +88,17 @@ class GameCard extends StatelessWidget {
   }
 
   Widget buildCardImage() {
-    if (isNetwork) {
-      return Positioned.fill(
-        child: Image.network(
-          data.imageUrl,
-          fit: BoxFit.cover,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            }
-            return Center(child: CircularProgressIndicator());
-          },
-        ),
-      );
-    } else {
-      return Positioned.fill(
-        child: Image(
-          image: AssetImage(data.imageUrl),
-          fit: BoxFit.cover,
-        ),
-      );
-    }
+    return Positioned.fill(
+      child: Image.network(
+        data.imageUrl,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) {
+            return child;
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
   }
 }

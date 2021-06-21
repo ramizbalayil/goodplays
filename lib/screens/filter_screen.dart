@@ -39,7 +39,7 @@ class FilterScreen extends StatelessWidget {
                             snapshot.data as List<CardData>;
                         return ListView.separated(
                             itemBuilder: (context, index) =>
-                                buildListTile(dataList[index], context, true),
+                                buildListTile(dataList[index], context),
                             separatorBuilder: (context, index) => Divider(
                                   color: Colors.grey[800],
                                 ),
@@ -55,11 +55,10 @@ class FilterScreen extends StatelessWidget {
     );
   }
 
-  ListTile buildListTile(CardData data, BuildContext context, bool isNetwork) {
+  ListTile buildListTile(CardData data, BuildContext context) {
     return ListTile(
       onTap: () => onCardTapped(context, data),
       leading: GameCard(
-          isNetwork: isNetwork,
           isTappable: false,
           widthOfCard: 0.1,
           marginOfCard: 0,

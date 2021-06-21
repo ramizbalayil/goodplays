@@ -7,11 +7,9 @@ class GamesList extends StatelessWidget {
   final double cardsMargin;
   final bool isDetailsRequired;
   final List<CardData> dataList;
-  final bool isNetwork;
   const GamesList(
       {Key? key,
       required this.dataList,
-      required this.isNetwork,
       this.cardsWidth: 0.0,
       this.cardsMargin: 0.0,
       this.isDetailsRequired: false})
@@ -36,7 +34,6 @@ class GamesList extends StatelessWidget {
 
   GameCard buildGameCard(CardData data) {
     return GameCard(
-        isNetwork: isNetwork,
         widthOfCard: cardsWidth,
         marginOfCard: cardsMargin,
         data: data,

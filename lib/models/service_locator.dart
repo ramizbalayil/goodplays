@@ -6,7 +6,6 @@ class ServiceLocator extends InheritedWidget {
       : super(key: key, child: child);
 
   final NetworkBloc networkBloc;
-
   final Widget child;
 
   static ServiceLocator? of(BuildContext context) {
