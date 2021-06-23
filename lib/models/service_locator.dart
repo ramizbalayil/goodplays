@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goodplays/models/notifiers.dart';
+import 'package:goodplays/models/network_manager.dart';
 
 class ServiceLocator extends InheritedWidget {
   ServiceLocator({Key? key, required this.child, required this.networkBloc})

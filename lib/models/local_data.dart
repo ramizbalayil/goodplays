@@ -28,5 +28,33 @@ class CardData {
   }
 }
 
+class Genre {
+  final int id;
+  final String name;
+  final List<GameData> gameData;
+  const Genre({required this.id, required this.name, required this.gameData});
+
+  factory Genre.fromJson(Map<String, dynamic> json) {
+    List<GameData> list = [];
+    for (var game in json["games"]) {
+      list.add(GameData.fromJson(game));
+    }
+    return Genre(
+      id: json["id"],
+      name: json["name"],
+      gameData: list,
+    );
+  }
+}
+
+class GameData {
+  final int id;
+  final String name;
+  const GameData({required this.id, required this.name});
+  factory GameData.fromJson(Map<String, dynamic> json) {
+    return GameData(id: json["id"], name: json["name"]);
+  }
+}
+
 const String randomDetails =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce scelerisque sem sit amet lacus euismod tempor. Integer nec nibh vitae felis rutrum fermentum. Ut a orci in sem mattis posuere non at enim";
