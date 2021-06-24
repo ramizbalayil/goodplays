@@ -3,6 +3,7 @@ import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/models/service_locator.dart';
+import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/views/game_card.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'details_screen.dart';
@@ -15,6 +16,7 @@ class FilterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var bloc = ServiceLocator.of(context)!.networkBloc;
+    Utils utils = ServiceLocator.of(context)!.utils;
 
     return SafeArea(
       child: Container(
@@ -22,13 +24,13 @@ class FilterScreen extends StatelessWidget {
         color: kPrimaryColor,
         child: Column(
           children: [
-            buildFlexibleWidgets(
+            utils.buildFlexibleWidgets(
                 1,
                 PageTitle(
                   titleText: FilterScreenTitle,
                   iconData: Icons.tune_rounded,
                 )),
-            buildFlexibleWidgets(
+            utils.buildFlexibleWidgets(
                 9,
                 Container(
                   child: FutureBuilder(
@@ -90,13 +92,5 @@ class FilterScreen extends StatelessWidget {
   void onCardTapped(BuildContext context, CardData data) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) => DetailsScreen(data: data)));
-  }
-
-  Flexible buildFlexibleWidgets(int flexValue, Widget w) {
-    return Flexible(
-      flex: flexValue,
-      fit: FlexFit.tight,
-      child: w,
-    );
   }
 }

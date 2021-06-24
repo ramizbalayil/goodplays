@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/network_manager.dart';
 import 'package:goodplays/models/service_locator.dart';
+import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/screens/filter_screen.dart';
 import 'package:goodplays/screens/home_screen.dart';
 import 'package:goodplays/screens/splash_screen.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var bloc = NetworkBloc();
+    var utils = Utils();
 
     return ChangeNotifierProvider(
       create: (context) => NavigationBloc(),
@@ -23,25 +25,14 @@ class MyApp extends StatelessWidget {
         title: 'Goodplays',
         debugShowCheckedModeBanner: false,
         home: ServiceLocator(
-          child: getFutureBuilder(
-              Future.wait([bloc.getGenres(), bloc.getGames()]), (data) {
-            return AppScaffold(data: data);
-          }),
+          child: utils.getFutureBuilder(
+              Future.wait([bloc.getGenres(), bloc.getGames()]),
+              (data) => AppScaffold(data: data),
+              SplashScreen()),
           networkBloc: bloc,
+          utils: utils,
         ),
       ),
-    );
-  }
-
-  Widget getFutureBuilder<T>(Future<T> future, Function func) {
-    return FutureBuilder(
-      future: future,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return func(snapshot.data as T);
-        }
-        return SplashScreen();
-      },
     );
   }
 }

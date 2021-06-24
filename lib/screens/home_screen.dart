@@ -5,6 +5,7 @@ import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/models/network_manager.dart';
 import 'package:goodplays/models/notifiers.dart';
 import 'package:goodplays/models/service_locator.dart';
+import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/views/games_list.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'package:goodplays/views/selectable_tabs.dart';
@@ -40,21 +41,23 @@ class HomeScreen extends StatelessWidget {
 
   Column buildColumnForHomeScreen(
       List<Genre> tabs, List<CardData> list, BuildContext context) {
+    Utils utils = ServiceLocator.of(context)!.utils;
+
     return Column(
       children: [
-        buildFlexibleWidgets(
+        utils.buildFlexibleWidgets(
             1,
             PageTitle(
               titleText: HomeScreenTitle,
               iconData: Icons.search,
             )),
-        buildFlexibleWidgets(1, SelectableTabs(tabs: tabs)),
-        buildFlexibleWidgets(
+        utils.buildFlexibleWidgets(1, SelectableTabs(tabs: tabs)),
+        utils.buildFlexibleWidgets(
           5,
-          testFunction(tabs, context),
+          buildGenreSpecificList(tabs, context),
         ),
-        buildFlexibleWidgets(1, Subheader(text: "Recommended to you")),
-        buildFlexibleWidgets(
+        utils.buildFlexibleWidgets(1, Subheader(text: "Recommended to you")),
+        utils.buildFlexibleWidgets(
             2,
             GamesList(
               cardsWidth: 0.15,
@@ -67,10 +70,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget testFunction(List<Genre> tabs, BuildContext context) {
+  Widget buildGenreSpecificList(List<Genre> tabs, BuildContext context) {
     int selectedTab = context.watch<NavigationBloc>().selectedTab;
     NetworkBloc networkBloc = ServiceLocator.of(context)!.networkBloc;
-    return getFutureBuilder(
+    Utils utils = ServiceLocator.of(context)!.utils;
+    return utils.getFutureBuilder(
         networkBloc.getGamesFromGenre(tabs[selectedTab].id),
         (list) => GamesList(
             cardsWidth: 0.3,
@@ -78,26 +82,7 @@ class HomeScreen extends StatelessWidget {
             isLoadedFromFuture: true,
             isDetailsRequired: true,
             gameDataList: list,
-            dataList: []));
-  }
-
-  Widget getFutureBuilder<T>(Future<T> future, Function func) {
-    return FutureBuilder(
-      future: future,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return func(snapshot.data as T);
-        }
-        return Center(child: RefreshProgressIndicator());
-      },
-    );
-  }
-
-  Flexible buildFlexibleWidgets(int flexValue, Widget w) {
-    return Flexible(
-      flex: flexValue,
-      fit: FlexFit.tight,
-      child: w,
-    );
+            dataList: []),
+        Center(child: RefreshProgressIndicator()));
   }
 }

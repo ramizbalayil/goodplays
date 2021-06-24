@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/models/service_locator.dart';
+import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/views/empty_game_card.dart';
 import 'game_card.dart';
 
@@ -24,34 +25,24 @@ class GamesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: buildListViewFromData(),
+      child: buildListViewFromData(context),
     );
   }
 
-  Widget getFutureBuilder<T>(Future<T> future, Function func) {
-    return FutureBuilder(
-      future: future,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return func(snapshot.data as T);
-        }
-        return EmptyGameCard(
-            widthOfCard: cardsWidth, marginOfCard: cardsMargin);
-      },
-    );
-  }
-
-  Widget buildListViewFromData() {
+  Widget buildListViewFromData(BuildContext context) {
+    Utils utils = ServiceLocator.of(context)!.utils;
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: isLoadedFromFuture ? gameDataList.length : dataList.length,
       itemBuilder: (context, index) {
         if (isLoadedFromFuture) {
-          return getFutureBuilder(
+          return utils.getFutureBuilder(
               ServiceLocator.of(context)!
                   .networkBloc
                   .getDetailsOfGame(gameDataList[index].id),
-              (card) => buildGameCard(card));
+              (card) => buildGameCard(card),
+              EmptyGameCard(
+                  widthOfCard: cardsWidth, marginOfCard: cardsMargin));
         } else {
           return buildGameCard(dataList[index]);
         }
