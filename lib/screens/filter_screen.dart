@@ -45,7 +45,7 @@ class FilterScreen extends StatelessWidget {
                                 ),
                             itemCount: dataList.length);
                       }
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: RefreshProgressIndicator());
                     },
                   ),
                 ))

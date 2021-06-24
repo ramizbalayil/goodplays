@@ -96,7 +96,7 @@ class GameCard extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           }
-          return Center(child: CircularProgressIndicator());
+          return Center(child: RefreshProgressIndicator());
         },
       ),
     );
