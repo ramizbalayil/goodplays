@@ -16,7 +16,7 @@ class NetworkBloc {
       var json = jsonDecode(response.body);
       List<dynamic> jsonResults = json["results"];
       for (var result in jsonResults) {
-        data.add(CardData.fromJson(result));
+        data.add(CardData.fromJsonWithoutDetails(result));
       }
     }
     return data;
@@ -77,7 +77,7 @@ class NetworkBloc {
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
 
-      data = CardData.fromJson(json);
+      data = CardData.fromJsonWithDetails(json);
       return data;
     } else {
       throw Exception();

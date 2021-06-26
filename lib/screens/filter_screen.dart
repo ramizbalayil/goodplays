@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:goodplays/models/local_data.dart';
+import 'package:goodplays/models/network_manager.dart';
+import 'package:goodplays/models/notifiers.dart';
 import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/views/game_card.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'details_screen.dart';
+import 'package:provider/provider.dart';
 
 class FilterScreen extends StatelessWidget {
-  const FilterScreen({
-    Key? key,
-  }) : super(key: key);
+  final PageDetails pageDetails;
+
+  const FilterScreen({Key? key, required this.pageDetails}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var bloc = ServiceLocator.of(context)!.networkBloc;
+    NetworkBloc bloc = ServiceLocator.of(context)!.networkBloc;
     Utils utils = ServiceLocator.of(context)!.utils;
 
     return SafeArea(
@@ -33,24 +36,20 @@ class FilterScreen extends StatelessWidget {
             utils.buildFlexibleWidgets(
                 9,
                 Container(
-                  child: FutureBuilder(
-                    future: bloc.getGames(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        List<CardData> dataList =
-                            snapshot.data as List<CardData>;
-                        return ListView.separated(
-                            itemBuilder: (context, index) =>
-                                buildListTile(dataList[index], context),
-                            separatorBuilder: (context, index) => Divider(
-                                  color: Colors.grey[800],
-                                ),
-                            itemCount: dataList.length);
-                      }
-                      return Center(child: RefreshProgressIndicator());
-                    },
-                  ),
-                ))
+                    child: utils.getFutureBuilder(
+                        bloc.getGamesFromGenre(pageDetails
+                            .genres[context.watch<NavigationBloc>().selectedTab]
+                            .id), (dataList) {
+                  return ListView.separated(
+                      itemBuilder: (context, index) => utils.getFutureBuilder(
+                          bloc.getDetailsOfGame(dataList[index].id),
+                          (cardData) => buildListTile(cardData, context),
+                          Center(child: RefreshProgressIndicator())),
+                      separatorBuilder: (context, index) => Divider(
+                            color: Colors.grey[800],
+                          ),
+                      itemCount: dataList.length);
+                }, Center(child: RefreshProgressIndicator()))))
           ],
         ),
       ),
@@ -71,12 +70,10 @@ class FilterScreen extends StatelessWidget {
         children: [
           Text(data.gameTitle, style: kGameTitleStyle),
           Spacer(),
-          Icon(
-            Icons.star_rounded,
-            color: kSecondaryColor,
-          ),
           Text(
-            data.ratings.toString(),
+            data.rating.toStringAsFixed(1) +
+                "/" +
+                data.ratingTop.toStringAsFixed(1),
             style: kRatingsStyleFilter,
           )
         ],

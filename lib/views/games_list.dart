@@ -35,17 +35,21 @@ class GamesList extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: isLoadedFromFuture ? gameDataList.length : dataList.length,
       itemBuilder: (context, index) {
-        if (isLoadedFromFuture) {
-          return utils.getFutureBuilder(
-              ServiceLocator.of(context)!
-                  .networkBloc
-                  .getDetailsOfGame(gameDataList[index].id),
-              (card) => buildGameCard(card),
-              EmptyGameCard(
-                  widthOfCard: cardsWidth, marginOfCard: cardsMargin));
-        } else {
-          return buildGameCard(dataList[index]);
+        List<GameData> list = [];
+        if (gameDataList.isEmpty && dataList.isNotEmpty) {
+          for (var data in dataList) {
+            list.add(new GameData(id: data.id, name: data.gameTitle));
+          }
         }
+        if (gameDataList.isNotEmpty) {
+          list = gameDataList;
+        }
+        return utils.getFutureBuilder(
+            ServiceLocator.of(context)!
+                .networkBloc
+                .getDetailsOfGame(list[index].id),
+            (card) => buildGameCard(card),
+            EmptyGameCard(widthOfCard: cardsWidth, marginOfCard: cardsMargin));
       },
     );
   }

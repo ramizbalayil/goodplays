@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/models/network_manager.dart';
 import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/models/utils.dart';
@@ -52,7 +53,18 @@ class AppScaffold extends StatelessWidget {
   }
 
   Widget showSelectedScreen(int pageNumber, dynamic data) {
-    List<Widget> screens = [HomeScreen(data: data), FilterScreen()];
+    List<Genre> tabs = [];
+    List<CardData> list = [];
+    if (data != null && data.length > 0) {
+      tabs = data[0] as List<Genre>;
+    }
+    if (data != null && data.length > 1) {
+      list = data[1] as List<CardData>;
+    }
+    List<Widget> screens = [
+      HomeScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list)),
+      FilterScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list))
+    ];
 
     if (pageNumber < screens.length) {
       return screens[pageNumber];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/data/style.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class DetailsScreen extends StatelessWidget {
   final CardData data;
@@ -96,43 +97,49 @@ class DetailsScreen extends StatelessWidget {
       builder: (context, controller) => ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
         child: Container(
-            color: kPrimaryColor.withOpacity(0.95),
-            child: SingleChildScrollView(
-              controller: controller,
-              child: buildContainerWithDetails(size),
-            )),
+          color: kPrimaryColor.withOpacity(0.95),
+          child: SingleChildScrollView(
+            controller: controller,
+            child: buildContainerWithDetails(size),
+            padding: EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 100),
+          ),
+        ),
       ),
     );
   }
 
   Container buildContainerWithDetails(Size size) {
     return Container(
-      width: size.width,
-      height: size.height * 0.5,
-      child: Padding(
-          padding: EdgeInsets.all(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                data.gameTitle,
-                style: kTitleStyle,
-                overflow: TextOverflow.ellipsis,
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              buildRatingText(),
-              SizedBox(
-                height: 25,
-              ),
-              buildTextForDetailsScreen("Summary", kSubheaderStyle),
-              SizedBox(
-                height: 25,
-              ),
-              buildTextForDetailsScreen(data.details, kGameTitleStyle),
-            ],
-          )),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            data.gameTitle,
+            style: kTitleStyle,
+            overflow: TextOverflow.ellipsis,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          buildRatingText(),
+          SizedBox(
+            height: 25,
+          ),
+          buildTextForDetailsScreen("Summary", kSubheaderStyle),
+          SizedBox(
+            height: 25,
+          ),
+          Html(
+            data: data.details,
+            shrinkWrap: true,
+            style: {
+              "p": Style(
+                  fontSize: FontSize(kGameTitleStyle.fontSize),
+                  color: kGameTitleStyle.color)
+            },
+          )
+        ],
+      ),
     );
   }
 

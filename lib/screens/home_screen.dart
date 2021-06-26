@@ -13,8 +13,9 @@ import 'package:goodplays/views/subheaders.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  final dynamic data;
-  const HomeScreen({Key? key, required this.data}) : super(key: key);
+  final PageDetails pageDetails;
+
+  const HomeScreen({Key? key, required this.pageDetails}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +23,16 @@ class HomeScreen extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(left: 10),
         color: kPrimaryColor,
-        child: buildColumn(data, context),
+        child: buildColumn(context),
       ),
     );
   }
 
-  Widget buildColumn(dynamic data, BuildContext context) {
-    List<Genre> tabs = [];
-    List<CardData> list = [];
-    if (data != null && data.length > 0) {
-      tabs = data[0] as List<Genre>;
-    }
-    if (data != null && data.length > 1) {
-      list = data[1] as List<CardData>;
-    }
-    return buildColumnForHomeScreen(tabs, list, context);
+  Widget buildColumn(BuildContext context) {
+    return buildColumnForHomeScreen(context);
   }
 
-  Column buildColumnForHomeScreen(
-      List<Genre> tabs, List<CardData> list, BuildContext context) {
+  Column buildColumnForHomeScreen(BuildContext context) {
     Utils utils = ServiceLocator.of(context)!.utils;
 
     return Column(
@@ -51,10 +43,10 @@ class HomeScreen extends StatelessWidget {
               titleText: HomeScreenTitle,
               iconData: Icons.search,
             )),
-        utils.buildFlexibleWidgets(1, SelectableTabs(tabs: tabs)),
+        utils.buildFlexibleWidgets(1, SelectableTabs(tabs: pageDetails.genres)),
         utils.buildFlexibleWidgets(
           5,
-          buildGenreSpecificList(tabs, context),
+          buildGenreSpecificList(pageDetails.genres, context),
         ),
         utils.buildFlexibleWidgets(1, Subheader(text: "Recommended to you")),
         utils.buildFlexibleWidgets(
@@ -64,7 +56,7 @@ class HomeScreen extends StatelessWidget {
               cardsMargin: 10,
               isDetailsRequired: false,
               gameDataList: [],
-              dataList: list,
+              dataList: pageDetails.cardDatas,
             )),
       ],
     );

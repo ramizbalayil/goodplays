@@ -3,7 +3,6 @@ class CardData {
   final String imageUrl;
   final String gameTitle;
   final String details;
-  final int ratings;
   final double rating;
   final int ratingTop;
 
@@ -11,18 +10,27 @@ class CardData {
       {required this.id,
       required this.imageUrl,
       required this.gameTitle,
-      required this.ratings,
       required this.rating,
       required this.ratingTop,
-      this.details = randomDetails});
+      this.details = ""});
 
-  factory CardData.fromJson(Map<String, dynamic> json) {
+  factory CardData.fromJsonWithoutDetails(Map<String, dynamic> json) {
     return CardData(
-      ratings: 100,
       id: json["id"],
       gameTitle: json["name"],
       imageUrl: json["background_image"],
       rating: json["rating"],
+      ratingTop: json["rating_top"],
+    );
+  }
+
+  factory CardData.fromJsonWithDetails(Map<String, dynamic> json) {
+    return CardData(
+      id: json["id"],
+      gameTitle: json["name"],
+      imageUrl: json["background_image"],
+      rating: json["rating"],
+      details: json["description"],
       ratingTop: json["rating_top"],
     );
   }
@@ -56,5 +64,8 @@ class GameData {
   }
 }
 
-const String randomDetails =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce scelerisque sem sit amet lacus euismod tempor. Integer nec nibh vitae felis rutrum fermentum. Ut a orci in sem mattis posuere non at enim";
+class PageDetails {
+  final List<Genre> genres;
+  final List<CardData> cardDatas;
+  PageDetails({required this.genres, required this.cardDatas});
+}
