@@ -18,3 +18,4 @@ const TextStyle kRatingsStyleDetails =
     TextStyle(color: kSecondaryColor, fontSize: 20);
 const TextStyle kRatingsStyleFilter =
     TextStyle(color: kSecondaryColor, fontSize: 15);
+const TextStyle kRatingsStyle = TextStyle(color: kSecondaryColor, fontSize: 15);
