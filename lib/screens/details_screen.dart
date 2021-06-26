@@ -130,7 +130,7 @@ class DetailsScreen extends StatelessWidget {
             height: 25,
           ),
           Html(
-            data: data.details,
+            data: data.description,
             shrinkWrap: true,
             style: {
               "p": Style(

@@ -2,7 +2,8 @@ class CardData {
   final int id;
   final String imageUrl;
   final String gameTitle;
-  final String details;
+  final String descriptionRaw;
+  final String description;
   final double rating;
   final int ratingTop;
 
@@ -12,7 +13,8 @@ class CardData {
       required this.gameTitle,
       required this.rating,
       required this.ratingTop,
-      this.details = ""});
+      this.description = "",
+      this.descriptionRaw = ""});
 
   factory CardData.fromJsonWithoutDetails(Map<String, dynamic> json) {
     return CardData(
@@ -30,7 +32,8 @@ class CardData {
       gameTitle: json["name"],
       imageUrl: json["background_image"],
       rating: json["rating"],
-      details: json["description"],
+      descriptionRaw: json["description_raw"],
+      description: json["description"],
       ratingTop: json["rating_top"],
     );
   }

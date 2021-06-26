@@ -79,7 +79,7 @@ class FilterScreen extends StatelessWidget {
         ],
       ),
       subtitle: Text(
-        data.details,
+        data.descriptionRaw,
         overflow: TextOverflow.ellipsis,
         style: kListTileDescriptionStyle,
       ),
