@@ -3,6 +3,7 @@ import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/models/network_manager.dart';
 import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/models/utils.dart';
+import 'package:goodplays/screens/explore_screen.dart';
 import 'package:goodplays/screens/filter_screen.dart';
 import 'package:goodplays/screens/home_screen.dart';
 import 'package:goodplays/screens/splash_screen.dart';
@@ -63,7 +64,8 @@ class AppScaffold extends StatelessWidget {
     }
     List<Widget> screens = [
       HomeScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list)),
-      FilterScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list))
+      FilterScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list)),
+      ExploreScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list))
     ];
 
     if (pageNumber < screens.length) {

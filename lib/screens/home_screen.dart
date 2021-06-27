@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
               cardsMargin: 10,
               isDetailsRequired: false,
               gameDataList: [],
-              dataList: pageDetails.cardDatas,
+              cardDataList: pageDetails.cardDatas,
             )),
       ],
     );
@@ -71,10 +71,9 @@ class HomeScreen extends StatelessWidget {
         (list) => GamesList(
             cardsWidth: 0.3,
             cardsMargin: 20,
-            isLoadedFromFuture: true,
             isDetailsRequired: true,
             gameDataList: list,
-            dataList: []),
+            cardDataList: []),
         Center(child: RefreshProgressIndicator()));
   }
 }

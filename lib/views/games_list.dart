@@ -9,17 +9,15 @@ class GamesList extends StatelessWidget {
   final double cardsWidth;
   final double cardsMargin;
   final bool isDetailsRequired;
-  final List<CardData> dataList;
+  final List<CardData> cardDataList;
   final List<GameData> gameDataList;
-  final bool isLoadedFromFuture;
   const GamesList(
       {Key? key,
-      required this.dataList,
+      required this.cardDataList,
       required this.gameDataList,
       this.cardsWidth: 0.0,
       this.cardsMargin: 0.0,
-      this.isDetailsRequired: false,
-      this.isLoadedFromFuture: false})
+      this.isDetailsRequired: false})
       : super(key: key);
 
   @override
@@ -29,25 +27,32 @@ class GamesList extends StatelessWidget {
     );
   }
 
+  List<GameData> getGameData() {
+    List<GameData> list = [];
+
+    if (gameDataList.isEmpty && cardDataList.isNotEmpty) {
+      for (var data in cardDataList) {
+        list.add(new GameData(id: data.id, name: data.gameTitle));
+      }
+    }
+    if (gameDataList.isNotEmpty) {
+      list = gameDataList;
+    }
+    return list;
+  }
+
   Widget buildListViewFromData(BuildContext context) {
     Utils utils = ServiceLocator.of(context)!.utils;
+    List<GameData> gameData = getGameData();
+
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: isLoadedFromFuture ? gameDataList.length : dataList.length,
+      itemCount: gameData.length,
       itemBuilder: (context, index) {
-        List<GameData> list = [];
-        if (gameDataList.isEmpty && dataList.isNotEmpty) {
-          for (var data in dataList) {
-            list.add(new GameData(id: data.id, name: data.gameTitle));
-          }
-        }
-        if (gameDataList.isNotEmpty) {
-          list = gameDataList;
-        }
         return utils.getFutureBuilder(
             ServiceLocator.of(context)!
                 .networkBloc
-                .getDetailsOfGame(list[index].id),
+                .getDetailsOfGame(gameData[index].id),
             (card) => buildGameCard(card),
             EmptyGameCard(widthOfCard: cardsWidth, marginOfCard: cardsMargin));
       },
