@@ -6,6 +6,7 @@ import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/screens/explore_screen.dart';
 import 'package:goodplays/screens/filter_screen.dart';
 import 'package:goodplays/screens/home_screen.dart';
+import 'package:goodplays/screens/profile_screen.dart';
 import 'package:goodplays/screens/splash_screen.dart';
 import 'package:goodplays/views/bottom_navbar.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +66,8 @@ class AppScaffold extends StatelessWidget {
     List<Widget> screens = [
       HomeScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list)),
       FilterScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list)),
-      ExploreScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list))
+      ExploreScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list)),
+      ProfileScreen(pageDetails: PageDetails(genres: tabs, cardDatas: list))
     ];
 
     if (pageNumber < screens.length) {
