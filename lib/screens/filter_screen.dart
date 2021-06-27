@@ -7,6 +7,7 @@ import 'package:goodplays/models/notifiers.dart';
 import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/views/game_card.dart';
+import 'package:goodplays/views/loading_spinner.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'details_screen.dart';
 import 'package:provider/provider.dart';
@@ -37,19 +38,21 @@ class FilterScreen extends StatelessWidget {
                 9,
                 Container(
                     child: utils.getFutureBuilder(
-                        bloc.getGamesFromGenre(pageDetails
-                            .genres[context.watch<NavigationBloc>().selectedTab]
-                            .id), (dataList) {
-                  return ListView.separated(
-                      itemBuilder: (context, index) => utils.getFutureBuilder(
-                          bloc.getDetailsOfGame(dataList[index].id),
-                          (cardData) => buildListTile(cardData, context),
-                          Center(child: RefreshProgressIndicator())),
-                      separatorBuilder: (context, index) => Divider(
-                            color: Colors.grey[800],
-                          ),
-                      itemCount: dataList.length);
-                }, Center(child: RefreshProgressIndicator()))))
+                  bloc.getGamesFromGenre(pageDetails
+                      .genres[context.watch<NavigationBloc>().selectedTab].id),
+                  (dataList) {
+                    return ListView.separated(
+                        itemBuilder: (context, index) => utils.getFutureBuilder(
+                            bloc.getDetailsOfGame(dataList[index].id),
+                            (cardData) => buildListTile(cardData, context),
+                            LoadingSpinner()),
+                        separatorBuilder: (context, index) => Divider(
+                              color: Colors.grey[800],
+                            ),
+                        itemCount: dataList.length);
+                  },
+                  LoadingSpinner(),
+                )))
           ],
         ),
       ),

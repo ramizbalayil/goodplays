@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:goodplays/data/style.dart';
+import 'package:goodplays/views/loading_spinner.dart';
 
 class EmptyGameCard extends StatelessWidget {
   final double widthOfCard;
@@ -18,7 +19,7 @@ class EmptyGameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Card(
-      color: kSecondaryColor,
+      color: kTertiaryColor,
       margin: EdgeInsets.all(marginOfCard),
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -28,9 +29,7 @@ class EmptyGameCard extends StatelessWidget {
         height: double.infinity,
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(borderRadiusForImage)),
-          child: Center(
-            child: RefreshProgressIndicator(),
-          ),
+          child: LoadingSpinner(),
         ),
       ),
     );

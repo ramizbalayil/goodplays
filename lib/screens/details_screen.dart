@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:goodplays/views/loading_spinner.dart';
 
 class DetailsScreen extends StatelessWidget {
   final CardData data;
@@ -167,7 +168,7 @@ class DetailsScreen extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           }
-          return Center(child: RefreshProgressIndicator());
+          return LoadingSpinner();
         },
       ),
     );

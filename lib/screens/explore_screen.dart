@@ -5,6 +5,7 @@ import 'package:goodplays/models/network_manager.dart';
 import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/views/games_list.dart';
+import 'package:goodplays/views/loading_spinner.dart';
 import 'package:goodplays/views/subheaders.dart';
 
 class ExploreScreen extends StatelessWidget {
@@ -16,7 +17,7 @@ class ExploreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-          padding: EdgeInsets.only(left: 10, top: 10),
+          padding: EdgeInsets.only(left: 20, top: 20),
           color: kPrimaryColor,
           child: ListView.builder(
               itemCount: pageDetails.genres.length,
@@ -48,6 +49,6 @@ class ExploreScreen extends StatelessWidget {
             isDetailsRequired: false,
             gameDataList: list,
             cardDataList: []),
-        Center(child: RefreshProgressIndicator()));
+        LoadingSpinner());
   }
 }

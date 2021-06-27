@@ -7,6 +7,7 @@ import 'package:goodplays/models/notifiers.dart';
 import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/views/games_list.dart';
+import 'package:goodplays/views/loading_spinner.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'package:goodplays/views/selectable_tabs.dart';
 import 'package:goodplays/views/subheaders.dart';
@@ -74,6 +75,6 @@ class HomeScreen extends StatelessWidget {
             isDetailsRequired: true,
             gameDataList: list,
             cardDataList: []),
-        Center(child: RefreshProgressIndicator()));
+        LoadingSpinner());
   }
 }

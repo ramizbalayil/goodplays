@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/screens/details_screen.dart';
 import 'package:goodplays/data/style.dart';
+import 'package:goodplays/views/loading_spinner.dart';
 
 class GameCard extends StatelessWidget {
   final double widthOfCard;
@@ -26,7 +28,7 @@ class GameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Card(
-      color: kSecondaryColor,
+      color: kTertiaryColor,
       margin: EdgeInsets.all(marginOfCard),
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -89,16 +91,11 @@ class GameCard extends StatelessWidget {
 
   Widget buildCardImage() {
     return Positioned.fill(
-      child: Image.network(
-        data.imageUrl,
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) {
-            return child;
-          }
-          return Center(child: RefreshProgressIndicator());
-        },
-      ),
-    );
+        child: CachedNetworkImage(
+      imageUrl: data.imageUrl,
+      fit: BoxFit.cover,
+      placeholder: (context, url) => LoadingSpinner(),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+    ));
   }
 }
