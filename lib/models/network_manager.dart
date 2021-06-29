@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 class NetworkBloc {
   String url = "api.rawg.io";
   String apiKey = "ae9c8ca2bd8340e8b28fa7841567e577";
+  Map<int, dynamic> genreDict = {};
 
   Future<List<CardData>> getGames() async {
     Uri uriParse = Uri.https(url, "/api/games", {"key": apiKey});
@@ -40,6 +41,10 @@ class NetworkBloc {
   }
 
   Future<List<GameData>> getGamesFromGenre(int genreId) async {
+    if (genreDict.containsKey(genreId)) {
+      return Future.delayed(Duration(seconds: 0), () => genreDict[genreId]);
+    }
+
     Uri uriParse = Uri.https(url, "/api/genres", {"key": apiKey});
     var response = await http.get(uriParse);
 
@@ -55,6 +60,9 @@ class NetworkBloc {
           break;
         }
       }
+    }
+    if (data.isNotEmpty) {
+      genreDict[genreId] = data;
     }
     return data;
   }
