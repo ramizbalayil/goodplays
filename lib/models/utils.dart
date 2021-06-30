@@ -6,7 +6,8 @@ class Utils {
     return FutureBuilder(
       future: future,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
           return func(snapshot.data as T);
         }
         return loadingWidget;
