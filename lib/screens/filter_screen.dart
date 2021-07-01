@@ -19,7 +19,6 @@ class FilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NetworkBloc bloc = ServiceLocator.of(context)!.networkBloc;
     Utils utils = ServiceLocator.of(context)!.utils;
 
     return SafeArea(
@@ -34,30 +33,36 @@ class FilterScreen extends StatelessWidget {
                   titleText: FilterScreenTitle,
                   iconData: Icons.tune_rounded,
                 )),
-            utils.buildFlexibleWidgets(
-                9,
-                Container(
-                    child: utils.getFutureBuilder(
-                  bloc.getGamesFromGenre(pageDetails
-                      .genres[context.watch<TabNavigationBloc>().selectedTab]
-                      .id),
-                  (dataList) {
-                    return ListView.separated(
-                        itemBuilder: (context, index) => utils.getFutureBuilder(
-                            bloc.getDetailsOfGame(dataList[index].id),
-                            (cardData) => buildListTile(cardData, context),
-                            LoadingSpinner()),
-                        separatorBuilder: (context, index) => Divider(
-                              color: Colors.grey[800],
-                            ),
-                        itemCount: dataList.length);
-                  },
-                  LoadingSpinner(),
-                )))
+            utils.buildFlexibleWidgets(9, buildFilteredList(utils, context))
           ],
         ),
       ),
     );
+  }
+
+  Container buildFilteredList(Utils utils, BuildContext context) {
+    NetworkBloc bloc = ServiceLocator.of(context)!.networkBloc;
+    int selectedTab = context.watch<TabNavigationBloc>().selectedTab;
+    int genreId = pageDetails.genres[selectedTab].id;
+
+    return Container(
+        child: utils.getFutureBuilder(
+      bloc.getGamesFromGenre(genreId),
+      (dataList) => buildListViewWithGameData(utils, bloc, dataList),
+      LoadingSpinner(),
+    ));
+  }
+
+  ListView buildListViewWithGameData(Utils u, NetworkBloc b, l) {
+    return ListView.separated(
+        itemBuilder: (context, index) => u.getFutureBuilder(
+            b.getDetailsOfGame(l[index].id),
+            (cardData) => buildListTile(cardData, context),
+            LoadingSpinner()),
+        separatorBuilder: (context, index) => Divider(
+              color: Colors.grey[800],
+            ),
+        itemCount: l.length);
   }
 
   ListTile buildListTile(CardData data, BuildContext context) {
