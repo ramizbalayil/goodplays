@@ -10,7 +10,8 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      onTap: (int index) => context.read<NavigationBloc>().pageNumber = index,
+      onTap: (int index) =>
+          context.read<PageNavigationBloc>().pageNumber = index,
       backgroundColor: kPrimaryColor,
       selectedItemColor: kSecondaryColor,
       unselectedItemColor: kTertiaryColor,

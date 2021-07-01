@@ -25,10 +25,10 @@ class SelectableTabs extends StatelessWidget {
       child: Center(
           child: TextButton(
         child: Text(tabs[index].name,
-            style: context.watch<NavigationBloc>().selectedTab == index
+            style: context.watch<TabNavigationBloc>().selectedTab == index
                 ? kSelectedTabStyle
                 : kTabStyle),
-        onPressed: () => context.read<NavigationBloc>().selectedTab = index,
+        onPressed: () => context.read<TabNavigationBloc>().selectedTab = index,
       )),
     );
   }

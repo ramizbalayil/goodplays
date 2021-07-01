@@ -15,7 +15,6 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   final PageDetails pageDetails;
-
   const HomeScreen({Key? key, required this.pageDetails}) : super(key: key);
 
   @override
@@ -29,13 +28,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildColumn(BuildContext context) {
-    return buildColumnForHomeScreen(context);
-  }
-
-  Column buildColumnForHomeScreen(BuildContext context) {
+  Column buildColumn(BuildContext context) {
     Utils utils = ServiceLocator.of(context)!.utils;
-
     return Column(
       children: [
         utils.buildFlexibleWidgets(
@@ -47,7 +41,7 @@ class HomeScreen extends StatelessWidget {
         utils.buildFlexibleWidgets(1, SelectableTabs(tabs: pageDetails.genres)),
         utils.buildFlexibleWidgets(
           5,
-          buildGenreSpecificList(pageDetails.genres, context),
+          buildGenreSpecificList(pageDetails.genres),
         ),
         utils.buildFlexibleWidgets(1, Subheader(text: "Recommended to you")),
         utils.buildFlexibleWidgets(
@@ -63,18 +57,21 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildGenreSpecificList(List<Genre> tabs, BuildContext context) {
-    int selectedTab = context.watch<NavigationBloc>().selectedTab;
-    NetworkBloc networkBloc = ServiceLocator.of(context)!.networkBloc;
-    Utils utils = ServiceLocator.of(context)!.utils;
-    return utils.getFutureBuilder(
-        networkBloc.getGamesFromGenre(tabs[selectedTab].id),
-        (list) => GamesList(
-            cardsWidth: 0.3,
-            cardsMargin: 20,
-            isDetailsRequired: true,
-            gameDataList: list,
-            cardDataList: []),
-        LoadingSpinner());
+  Widget buildGenreSpecificList(List<Genre> tabs) {
+    return Consumer<TabNavigationBloc>(
+      builder: (context, bloc, __) {
+        NetworkBloc networkBloc = ServiceLocator.of(context)!.networkBloc;
+        Utils utils = ServiceLocator.of(context)!.utils;
+        return utils.getFutureBuilder(
+            networkBloc.getGamesFromGenre(tabs[bloc.selectedTab].id),
+            (list) => GamesList(
+                cardsWidth: 0.3,
+                cardsMargin: 20,
+                isDetailsRequired: true,
+                gameDataList: list,
+                cardDataList: []),
+            LoadingSpinner());
+      },
+    );
   }
 }

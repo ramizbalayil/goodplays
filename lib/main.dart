@@ -22,8 +22,11 @@ class MyApp extends StatelessWidget {
     var bloc = NetworkBloc();
     var utils = Utils();
 
-    return ChangeNotifierProvider(
-      create: (context) => NavigationBloc(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => PageNavigationBloc()),
+        ChangeNotifierProvider(create: (context) => TabNavigationBloc())
+      ],
       child: MaterialApp(
         title: 'Goodplays',
         debugShowCheckedModeBanner: false,
@@ -46,11 +49,11 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NavigationBloc navBarBloc = Provider.of<NavigationBloc>(context);
+    int pageNumber = context.watch<PageNavigationBloc>().pageNumber;
 
     return Scaffold(
-      body: showSelectedScreen(navBarBloc.pageNumber, data),
-      bottomNavigationBar: BottomNavBar(pageNumber: navBarBloc.pageNumber),
+      body: showSelectedScreen(pageNumber, data),
+      bottomNavigationBar: BottomNavBar(pageNumber: pageNumber),
     );
   }
 

@@ -39,7 +39,8 @@ class FilterScreen extends StatelessWidget {
                 Container(
                     child: utils.getFutureBuilder(
                   bloc.getGamesFromGenre(pageDetails
-                      .genres[context.watch<NavigationBloc>().selectedTab].id),
+                      .genres[context.watch<TabNavigationBloc>().selectedTab]
+                      .id),
                   (dataList) {
                     return ListView.separated(
                         itemBuilder: (context, index) => utils.getFutureBuilder(
