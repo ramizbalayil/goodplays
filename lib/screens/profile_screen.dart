@@ -17,11 +17,12 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isInEditMode = false;
   final LocalStorage storage = new LocalStorage('goodplays');
+
   Map<String, String> profileData = {};
   Map<String, String> defaultProfileData = {
     "Username": "John Doe",
     "Email": "johndoe@gmail.com",
-    "Gender": "Male"
+    "Age": "0"
   };
 
   @override
@@ -54,11 +55,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               dynamic userInfo = storage.getItem("userInfo");
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  buildIndividualUserInfo("Username", userInfo),
-                  buildIndividualUserInfo("Email", userInfo),
-                  buildIndividualUserInfo("Gender", userInfo),
+                  buildIndividualUserInfo(
+                      "Username", userInfo, TextInputType.name),
+                  buildIndividualUserInfo(
+                      "Email", userInfo, TextInputType.emailAddress),
+                  buildIndividualUserInfo(
+                      "Age", userInfo, TextInputType.number),
                 ],
               );
             }
@@ -66,20 +70,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget buildIndividualUserInfo(String key, dynamic userInfo) {
-    return buildContainerWithUserInfo(key,
-        userInfo.containsKey(key) ? userInfo[key] : defaultProfileData[key]);
+  Widget buildIndividualUserInfo(
+      String key, dynamic userInfo, TextInputType type) {
+    return buildContainerWithUserInfo(
+        key,
+        userInfo.containsKey(key) ? userInfo[key] : defaultProfileData[key],
+        type);
   }
 
-  Container buildContainerWithUserInfo(String key, String value) {
+  Container buildContainerWithUserInfo(
+      String key, String value, TextInputType type) {
     if (isInEditMode) {
-      return Container(
-          child: TextField(
-        autocorrect: false,
-        onChanged: (changedValue) => {onUserProfileEdited(key, changedValue)},
-        decoration: InputDecoration(labelText: key, labelStyle: kProfileStyle),
-        style: kProfileStyle,
-      ));
+      return buildContainerWithTextField(key, value, type);
     } else {
       return Container(
         child: Column(
@@ -96,8 +98,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  Container buildContainerWithTextField(
+      String key, String value, TextInputType type) {
+    return Container(
+        child: TextField(
+      autocorrect: false,
+      keyboardType: type,
+      onChanged: (changedValue) => {onUserProfileEdited(key, changedValue)},
+      decoration: InputDecoration(
+          labelText: key,
+          labelStyle: kProfileStyle,
+          hintText: value,
+          hintStyle: kTabStyle),
+      style: kProfileStyle,
+    ));
+  }
+
   void onUserProfileEdited(String key, String value) {
-    print(key + " :: " + value);
     profileData[key] = value;
   }
 
