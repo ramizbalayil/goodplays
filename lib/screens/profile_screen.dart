@@ -74,7 +74,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       String key, dynamic userInfo, TextInputType type) {
     return buildContainerWithUserInfo(
         key,
-        userInfo.containsKey(key) ? userInfo[key] : defaultProfileData[key],
+        userInfo != null && userInfo.containsKey(key)
+            ? userInfo[key]
+            : defaultProfileData[key],
         type);
   }
 
