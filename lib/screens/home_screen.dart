@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.only(left: 10),
+        padding: EdgeInsets.all(10),
         color: kPrimaryColor,
         child: buildColumn(context),
       ),
@@ -38,6 +38,7 @@ class HomeScreen extends StatelessWidget {
               PageTitle(
                 titleText: kHomeScreenTitle,
                 iconData: Icons.search,
+                onPressedFunc: () {},
               )),
           utils.buildFlexibleWidgets(1, buildTabs(tabs)),
           utils.buildFlexibleWidgets(

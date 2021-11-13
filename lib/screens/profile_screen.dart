@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/models/utils.dart';
+import 'package:goodplays/views/page_title.dart';
 import 'package:localstorage/localstorage.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -27,17 +29,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Utils utils = ServiceLocator.of(context)!.utils;
+
     return SafeArea(
       child: Container(
-          color: kPrimaryColor,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                buildProfileImageHolder(context),
-                buildContainerForUserInfo(context),
-              ],
-            ),
-          )),
+        padding: EdgeInsets.all(10),
+        color: kPrimaryColor,
+        child: Column(
+          children: [
+            utils.buildFlexibleWidgets(
+                1,
+                PageTitle(
+                  titleText: kProfileScreenTitle,
+                  iconData: isInEditMode ? Icons.save : Icons.edit,
+                  onPressedFunc: () {
+                    onEditIconPressed();
+                  },
+                )),
+            utils.buildFlexibleWidgets(
+                9,
+                Container(
+                    child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      buildProfileImageHolder(context),
+                      buildContainerForUserInfo(context),
+                    ],
+                  ),
+                ))),
+          ],
+        ),
+      ),
     );
   }
 
@@ -122,7 +144,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Container buildProfileImageHolder(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    IconData iconData = isInEditMode ? Icons.save : Icons.edit;
     return Container(
         width: double.infinity,
         height: height * 0.5,
@@ -131,12 +152,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Positioned.fill(
                 child: buildButtonIcon(height * 0.15, Icons.person,
                     kSecondaryColor, Colors.white, onProfileIconPressed)),
-            Positioned(
-              right: 0,
-              top: 20,
-              child: buildButtonIcon(22, iconData, Colors.black,
-                  kSecondaryColor, onEditIconPressed),
-            )
           ],
         ));
   }
@@ -162,6 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void onEditIconPressed() {
+    print("onEditIconPressed");
     setState(() {
       if (isInEditMode) {
         storage.setItem("userInfo", profileData);

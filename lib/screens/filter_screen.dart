@@ -21,7 +21,7 @@ class FilterScreen extends StatelessWidget {
 
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.only(left: 10),
+        padding: EdgeInsets.all(10),
         color: kPrimaryColor,
         child: Column(
           children: [
@@ -30,6 +30,7 @@ class FilterScreen extends StatelessWidget {
                 PageTitle(
                   titleText: kFilterScreenTitle,
                   iconData: Icons.tune_rounded,
+                  onPressedFunc: () {},
                 )),
             utils.buildFlexibleWidgets(9, buildFilteredList(utils, context))
           ],

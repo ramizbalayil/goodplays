@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/models/network_manager.dart';
@@ -9,6 +10,7 @@ import 'package:goodplays/screens/home_screen.dart';
 import 'package:goodplays/screens/profile_screen.dart';
 import 'package:goodplays/screens/splash_screen.dart';
 import 'package:goodplays/views/bottom_navbar.dart';
+import 'package:goodplays/views/app_drawer.dart';
 import 'package:provider/provider.dart';
 import 'models/notifiers.dart';
 
@@ -51,8 +53,9 @@ class AppScaffold extends StatelessWidget {
     int pageNumber = context.watch<PageNavigationBloc>().pageNumber;
 
     return Scaffold(
+      drawer: kIsWeb ? AppDrawer() : null,
       body: showSelectedScreen(pageNumber, data),
-      bottomNavigationBar: BottomNavBar(pageNumber: pageNumber),
+      bottomNavigationBar: kIsWeb ? null : BottomNavBar(pageNumber: pageNumber),
     );
   }
 

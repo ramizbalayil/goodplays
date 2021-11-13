@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/models/network_manager.dart';
@@ -6,6 +7,7 @@ import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/views/games_list.dart';
 import 'package:goodplays/views/loading_spinner.dart';
+import 'package:goodplays/views/page_title.dart';
 import 'package:goodplays/views/subheaders.dart';
 
 class ExploreScreen extends StatelessWidget {
@@ -15,13 +17,32 @@ class ExploreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Utils utils = ServiceLocator.of(context)!.utils;
+
     return SafeArea(
       child: Container(
-          padding: EdgeInsets.only(left: 20, top: 20),
+          padding: EdgeInsets.all(10),
           color: kPrimaryColor,
-          child: ListView.builder(
-              itemCount: pageDetails.genres.length,
-              itemBuilder: (context, index) => buildColumns(context, index))),
+          child: Column(
+            children: [
+              utils.buildFlexibleWidgets(
+                  1,
+                  PageTitle(
+                    titleText: kExploreScreenTitle,
+                    iconData: Icons.search,
+                    onPressedFunc: () {},
+                  )),
+              utils.buildFlexibleWidgets(
+                  9,
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: ListView.builder(
+                        itemCount: pageDetails.genres.length,
+                        itemBuilder: (context, index) =>
+                            buildColumns(context, index)),
+                  )),
+            ],
+          )),
     );
   }
 
