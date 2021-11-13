@@ -3,14 +3,12 @@ import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/models/network_manager.dart';
-import 'package:goodplays/models/notifiers.dart';
 import 'package:goodplays/models/service_locator.dart';
 import 'package:goodplays/models/utils.dart';
 import 'package:goodplays/views/game_card.dart';
 import 'package:goodplays/views/loading_spinner.dart';
 import 'package:goodplays/views/page_title.dart';
 import 'details_screen.dart';
-import 'package:provider/provider.dart';
 
 class FilterScreen extends StatelessWidget {
   final PageDetails pageDetails;
@@ -42,7 +40,7 @@ class FilterScreen extends StatelessWidget {
 
   Container buildFilteredList(Utils utils, BuildContext context) {
     NetworkBloc bloc = ServiceLocator.of(context)!.networkBloc;
-    int selectedTab = context.watch<TabNavigationBloc>().selectedTab;
+    int selectedTab = 0;
     int genreId = pageDetails.genres[selectedTab].id;
 
     return Container(

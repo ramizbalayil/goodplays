@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => PageNavigationBloc()),
-        ChangeNotifierProvider(create: (context) => TabNavigationBloc())
       ],
       child: MaterialApp(
         title: 'Goodplays',
