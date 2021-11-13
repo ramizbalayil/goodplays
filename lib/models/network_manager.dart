@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'package:goodplays/data/constants.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkBloc {
   String url = "api.rawg.io";
-  String apiKey = "ed7a378c37b14ad7ad7f34352a20116d";
+  String apiKey = kAPI_KEY;
   Map<int, dynamic> genreDict = {};
 
   Future<List<CardData>> getGames() async {
