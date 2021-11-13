@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:goodplays/models/local_data.dart';
 import 'package:goodplays/data/style.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:goodplays/views/loading_spinner.dart';
+import 'package:goodplays/data/constants.dart';
 
 class DetailsScreen extends StatelessWidget {
   final CardData data;
@@ -19,7 +21,7 @@ class DetailsScreen extends StatelessWidget {
             children: [
               buildDetailsImage(),
               buildBackButton(context),
-              buildDetails(size),
+              kIsWeb ? buildDetailsForWeb(size) : buildDetailsForMobile(size),
               buildDetailsScreenButtons(size)
             ],
           ),
@@ -28,13 +30,32 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  Positioned buildDetailsScreenButtons(Size size) {
-    return Positioned(
-        bottom: 20,
-        left: 20,
-        right: 20,
+  Widget buildDetailsForWeb(size) {
+    return Center(
+      child: Container(
+        width: size.width * kScreenSizeMultiplierForWeb,
+        padding: EdgeInsets.only(top: 30),
+        child: ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+            child: Container(
+              color: kPrimaryColor.withOpacity(0.95),
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      left: 30, right: 30, top: 30, bottom: 100),
+                  child: buildContainerWithDetails(size)),
+            )),
+      ),
+    );
+  }
+
+  Widget buildDetailsScreenButtons(Size size) {
+    return Align(
+        alignment: Alignment.bottomCenter,
         child: Container(
-            height: size.height * 0.085,
+            padding: EdgeInsets.only(bottom: kIsWeb ? 20 : 10),
+            width:
+                kIsWeb ? size.width * kScreenSizeMultiplierForWeb : size.width,
+            height: size.height * 0.1,
             child: Row(
               children: [
                 Flexible(
@@ -90,7 +111,7 @@ class DetailsScreen extends StatelessWidget {
         ));
   }
 
-  Widget buildDetails(Size size) {
+  Widget buildDetailsForMobile(Size size) {
     return DraggableScrollableSheet(
       initialChildSize: 0.5,
       minChildSize: 0.3,

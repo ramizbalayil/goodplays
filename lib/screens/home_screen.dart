@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
         utils.buildFlexibleWidgets(
             1,
             PageTitle(
-              titleText: HomeScreenTitle,
+              titleText: kHomeScreenTitle,
               iconData: Icons.search,
             )),
         utils.buildFlexibleWidgets(1, SelectableTabs(tabs: pageDetails.genres)),

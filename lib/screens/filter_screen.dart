@@ -30,7 +30,7 @@ class FilterScreen extends StatelessWidget {
             utils.buildFlexibleWidgets(
                 1,
                 PageTitle(
-                  titleText: FilterScreenTitle,
+                  titleText: kFilterScreenTitle,
                   iconData: Icons.tune_rounded,
                 )),
             utils.buildFlexibleWidgets(9, buildFilteredList(utils, context))

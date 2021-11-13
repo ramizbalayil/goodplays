@@ -1,2 +1,4 @@
-const String HomeScreenTitle = "Home";
-const String FilterScreenTitle = "Filter";
+const String kHomeScreenTitle = "Home";
+const String kFilterScreenTitle = "Filter";
+
+const double kScreenSizeMultiplierForWeb = 0.6;
