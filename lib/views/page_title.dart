@@ -17,7 +17,7 @@ class PageTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Utils utils = ServiceLocator.of(context)!.utils;
+    Utils utils = ServiceLocator.utils;
 
     return Container(
       child: Row(

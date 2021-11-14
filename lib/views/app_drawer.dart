@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:goodplays/data/style.dart';
-import 'package:goodplays/models/notifiers.dart';
-import 'package:provider/src/provider.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({
@@ -29,8 +27,20 @@ class AppDrawer extends StatelessWidget {
       IconData data, String label, BuildContext context, int pageNumber) {
     return ListTile(
         onTap: () {
-          context.read<PageNavigationBloc>().pageNumber = pageNumber;
-          Navigator.pop(context);
+          switch (pageNumber) {
+            case 0:
+              Navigator.pushNamed(context, "/home_screen");
+              break;
+            case 1:
+              Navigator.pushNamed(context, "/filter_screen");
+              break;
+            case 2:
+              Navigator.pushNamed(context, "/explore_screen");
+              break;
+            case 3:
+              Navigator.pushNamed(context, "/profile_screen");
+              break;
+          }
         },
         leading: Icon(
           data,

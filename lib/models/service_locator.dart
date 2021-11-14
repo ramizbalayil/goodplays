@@ -3,15 +3,13 @@ import 'package:goodplays/models/network_manager.dart';
 import 'package:goodplays/models/utils.dart';
 
 class ServiceLocator extends InheritedWidget {
-  ServiceLocator(
-      {Key? key,
-      required this.child,
-      required this.networkBloc,
-      required this.utils})
-      : super(key: key, child: child);
+  ServiceLocator({
+    Key? key,
+    required this.child,
+  }) : super(key: key, child: child);
 
-  final NetworkBloc networkBloc;
-  final Utils utils;
+  static NetworkBloc networkBloc = new NetworkBloc();
+  static Utils utils = new Utils();
   final Widget child;
 
   static ServiceLocator? of(BuildContext context) {

@@ -23,7 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^5.0.0
   http: ^0.13.3
   flutter_html: ^2.1.0
   cached_network_image: ^3.0.0

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:goodplays/data/style.dart';
-import 'package:goodplays/models/notifiers.dart';
-import 'package:provider/provider.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int pageNumber;
@@ -10,8 +8,22 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      onTap: (int index) =>
-          context.read<PageNavigationBloc>().pageNumber = index,
+      onTap: (int index) {
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, "/home_screen");
+            break;
+          case 1:
+            Navigator.pushNamed(context, "/filter_screen");
+            break;
+          case 2:
+            Navigator.pushNamed(context, "/explore_screen");
+            break;
+          case 3:
+            Navigator.pushNamed(context, "/profile_screen");
+            break;
+        }
+      },
       backgroundColor: kPrimaryColor,
       selectedItemColor: kSecondaryColor,
       unselectedItemColor: kTertiaryColor,

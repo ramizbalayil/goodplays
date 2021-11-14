@@ -42,7 +42,7 @@ class GamesList extends StatelessWidget {
   }
 
   Widget buildListViewFromData(BuildContext context) {
-    Utils utils = ServiceLocator.of(context)!.utils;
+    Utils utils = ServiceLocator.utils;
     List<GameData> gameData = getGameData();
 
     return ListView.builder(
@@ -50,9 +50,7 @@ class GamesList extends StatelessWidget {
       itemCount: gameData.length,
       itemBuilder: (context, index) {
         return utils.getFutureBuilder(
-            ServiceLocator.of(context)!
-                .networkBloc
-                .getDetailsOfGame(gameData[index].id),
+            ServiceLocator.networkBloc.getDetailsOfGame(gameData[index].id),
             (card) => buildGameCard(card),
             EmptyGameCard(widthOfCard: cardsWidth, marginOfCard: cardsMargin));
       },

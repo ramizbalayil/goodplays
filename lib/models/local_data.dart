@@ -72,3 +72,21 @@ class PageDetails {
   final List<CardData> cardDatas;
   PageDetails({required this.genres, required this.cardDatas});
 }
+
+class NetworkData {
+  static PageDetails pageDetails = new PageDetails(genres: [], cardDatas: []);
+
+  static setPageDetails(dynamic data) {
+    List<Genre> tabs = [];
+    List<CardData> list = [];
+    if (data != null && data.length > 0) {
+      tabs = data[0] as List<Genre>;
+    }
+    if (data != null && data.length > 1) {
+      list = data[1] as List<CardData>;
+    }
+
+    PageDetails details = new PageDetails(genres: tabs, cardDatas: list);
+    pageDetails = details;
+  }
+}
